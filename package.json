@@ -1,0 +1,15 @@
+{
+  "name": "clean-text-utils",
+  "version": "1.0.0",
+  "description": "A Swiss Army Knife of text operations. Great for removing smart quotes, non-ASCII characters, and more.",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "text",
+    "npm"
+  ],
+  "author": "Davis E Ford",
+  "license": "ISC"
+}

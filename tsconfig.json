@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "jsx": "react",
+    "lib": ["esnext"],
+    "module": "es6",
+    "removeComments": true,
+    "noImplicitAny": false,
+    "outDir": "./dist/",
+    "pretty": true,
+    "target": "es5",
+    "sourceMap": true
+  }
+}
