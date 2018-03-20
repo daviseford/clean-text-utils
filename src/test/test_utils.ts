@@ -21,8 +21,8 @@ describe('Utils', () => {
         });
 
         it('should replace smart quotes', () => {
-            const txt = '“Hello.” hi mark ‘Oh hai mark’ sdfksjlfjls "" sdfs';
-            expect(CleanText.replace.smartChars(txt)).to.equal('"Hello." hi mark \'Oh hai mark\' sdfksjlfjls "" sdfs');
+            const txt = '“Hello.” hi mark ‘Oh hai mark’ "" „sdfs„';
+            expect(CleanText.replace.smartChars(txt)).to.equal('"Hello." hi mark \'Oh hai mark\' "" "sdfs"');
         });
 
         it('should strip extra spaces', () => {
