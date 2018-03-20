@@ -13,7 +13,7 @@ describe('Utils', () => {
 
     describe('Text Util', () => {
 
-        it('should remove emojii from text', () => {
+        it('should strip emojii', () => {
             const txt = '🙏🙏🙏 👍thumbs-up👍 for staying 💪strong💪 without 💩emoji💩 🙏🙏🙏';
             expect(TextUtils.stripEmoji(txt)).to.equal('thumbs-up for staying strong without emoji');
         });
@@ -26,6 +26,11 @@ describe('Utils', () => {
         it('should replace smart quotes', () => {
             const txt = '“Hello.” hi mark ‘Oh hai mark’ sdfksjlfjls "" sdfs';
             expect(TextUtils.replaceSmartChars(txt)).to.equal('"Hello." hi mark \'Oh hai mark\' sdfksjlfjls "" sdfs');
+        });
+
+        it('should strip extra spaces', () => {
+            const txt = '  too     many     spaces      !!  ';
+            expect(TextUtils.stripExtraSpace(txt)).to.equal('too many spaces !!');
         });
 
     });

@@ -13,6 +13,7 @@ const Module: IModule = {
     strip: {
         bom: TextUtils.stripBom,
         emoji: TextUtils.stripEmoji,
+        extraSpace: TextUtils.stripExtraSpace,
         nonASCII: TextUtils.stripNonASCII,
     },
 

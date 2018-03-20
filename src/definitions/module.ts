@@ -4,6 +4,7 @@ export interface IModuleGet {
 
 export interface IModuleStrip {
     bom: (text: string) => string;
+    extraSpace: (text: string) => string;
     emoji: (text: string) => string;
     nonASCII: (text: string) => string;
 }

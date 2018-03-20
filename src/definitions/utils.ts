@@ -5,6 +5,7 @@ export interface ITextUtils {
     replaceSmartChars: (text: string) => string;
     replaceExoticChars: (text: string) => string;
     stripBom: (text: string) => string;
+    stripExtraSpace: (text: string) => string;
     stripNonASCII: (text: string) => string;
     stripEmoji: (text: string) => string;
     superCleanText: (data: any) => string | null;

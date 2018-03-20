@@ -6,12 +6,20 @@ const replaceDiacritics = require('diacritics').remove;
 const stripBom = require('strip-bom');
 
 /**
+ * Removes any instances of multiple whitespace characters in a row.
+ *
+ * @param {string} text
+ * @returns {string}
+ */
+const stripExtraSpace = (text: string): string => text.replace(/\s{2,}/gm, ' ').trim();
+
+/**
  * Removes non-ASCII characters from a string
  *
  * @param {string} text
  * @returns {string}
  */
-const stripNonASCII: ITextUtils['stripNonASCII'] = (text) => text.replace(/[^\x00-\x7F]/g, '').trim();
+const stripNonASCII = (text: string): string => text.replace(/[^\x00-\x7F]/g, '').trim();
 
 /**
  * Remove emojis from a string
@@ -19,7 +27,7 @@ const stripNonASCII: ITextUtils['stripNonASCII'] = (text) => text.replace(/[^\x0
  * @param {string} text
  * @returns {string}
  */
-const stripEmoji: ITextUtils['stripEmoji'] = (text) => text.replace(emojiRegex(), '').trim();
+const stripEmoji = (text: string): string => text.replace(emojiRegex(), '').trim();
 
 /**
  * Removes emojis, diacritics, and UTF-8 Byte Order Marks
@@ -27,7 +35,7 @@ const stripEmoji: ITextUtils['stripEmoji'] = (text) => text.replace(emojiRegex()
  * @param {string} text
  * @returns {string}
  */
-const replaceExoticChars: ITextUtils['replaceExoticChars'] = (text) => {
+const replaceExoticChars = (text: string): string => {
     let s = replaceDiacritics(text);    // remove language accents and odd character replacements
     s = stripBom(s);                    // strip things like \uFEFF
     s = replaceSmartChars(s);           // replace smart quotes
@@ -40,7 +48,7 @@ const replaceExoticChars: ITextUtils['replaceExoticChars'] = (text) => {
  * @param {string} text
  * @returns {string}
  */
-const replaceSmartChars: ITextUtils['replaceSmartChars'] = (text) => {
+const replaceSmartChars = (text: string): string => {
     const s = text
         .replace(/[‘’\u2018\u2019\u201A]/g, '\'')   // smart single quotes and apostrophe
         .replace(/[“”\u201C\u201D\u201E]/g, '"')    // smart double quotes
@@ -56,7 +64,7 @@ const replaceSmartChars: ITextUtils['replaceSmartChars'] = (text) => {
  * @param {*} data
  * @returns {*}
  */
-const cleanText: ITextUtils['cleanText'] = (data) => typeof data !== 'string' ? data : replaceSmartChars(data);
+const cleanText = (data: any): any => typeof data !== 'string' ? data : replaceSmartChars(data);
 
 /**
  * Takes pretty extreme precautions with text
@@ -64,7 +72,7 @@ const cleanText: ITextUtils['cleanText'] = (data) => typeof data !== 'string' ? 
  * @param {*} data
  * @returns {(string | null)}
  */
-const superCleanText: ITextUtils['superCleanText'] = (data) => {
+const superCleanText = (data: any): string | null => {
     if (!data || typeof data !== 'string') { return null; }
     let txt = replaceExoticChars(data);
     txt = stripNonASCII(txt);
@@ -79,6 +87,7 @@ const TextUtils: ITextUtils = {
     replaceSmartChars,
     stripBom,
     stripEmoji,
+    stripExtraSpace,
     stripNonASCII,
     superCleanText,
 };
