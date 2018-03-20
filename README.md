@@ -15,7 +15,7 @@ let txt = 'Iлｔèｒｎ, get rid of these so-called “💩emoji💩”';
 txt = cleanTextUtils.strip.emoji(txt);
 txt = cleanTextUtils.replace.diacritics(txt);
 txt = cleanTextUtils.replace.smartChars(txt);
-console.log(fixed)
+console.log(txt)
 >>> 'Intern, get rid of these so-called "emoji"'
 ```
 
