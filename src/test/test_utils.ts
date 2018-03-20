@@ -1,12 +1,11 @@
 export { };
 
+import { IModule } from '../definitions/module';
 import { ITextUtils } from '../definitions/utils';
 
 const { expect } = require('chai');
 const path = require('path');
-
-const TextUtils: ITextUtils = require('../util/text_util');
-
+const CleanText: IModule = require('../module/clean-text-util');
 const checksum = require('../util/checksum');
 
 describe('Utils', () => {
@@ -15,22 +14,31 @@ describe('Utils', () => {
 
         it('should strip emojii', () => {
             const txt = '🙏🙏🙏 👍thumbs-up👍 for staying 💪strong💪 without 💩emoji💩 🙏🙏🙏';
-            expect(TextUtils.stripEmoji(txt)).to.equal('thumbs-up for staying strong without emoji');
+            expect(CleanText.strip.emoji(txt)).to.equal('thumbs-up for staying strong without emoji');
         });
 
         it('should convert diacritic accents', () => {
             const txt = 'Iлｔèｒｎåｔïｏｎɑｌíƶａｔï߀ԉ';
-            expect(TextUtils.replaceExoticChars(txt)).to.equal('Internationalizati0n');
+            expect(CleanText.replace.exoticChars(txt)).to.equal('Internationalizati0n');
         });
 
         it('should replace smart quotes', () => {
             const txt = '“Hello.” hi mark ‘Oh hai mark’ sdfksjlfjls "" sdfs';
-            expect(TextUtils.replaceSmartChars(txt)).to.equal('"Hello." hi mark \'Oh hai mark\' sdfksjlfjls "" sdfs');
+            expect(CleanText.replace.smartChars(txt)).to.equal('"Hello." hi mark \'Oh hai mark\' sdfksjlfjls "" sdfs');
         });
 
         it('should strip extra spaces', () => {
             const txt = '  too     many     spaces      !!  ';
-            expect(TextUtils.stripExtraSpace(txt)).to.equal('too many spaces !!');
+            expect(CleanText.strip.extraSpace(txt)).to.equal('too many spaces !!');
+        });
+
+        it('should detect hex codes', () => {
+            const hex1 = '#FFF';
+            const hex2 = '#FFFFFF';
+            const no_hex = 'something';
+            expect(CleanText.is.hexCode(hex1)).to.equal(true);
+            expect(CleanText.is.hexCode(hex2)).to.equal(true);
+            expect(CleanText.is.hexCode(no_hex)).to.equal(false);
         });
 
     });
@@ -42,7 +50,7 @@ describe('Utils', () => {
                 { astring: 'splendied', an_array: [{}, {}, { d: 'b' }] },
                 'a simple little string',
             ];
-            const checksums = entries.map(entry => checksum(entry, 'sha256'));
+            const checksums = entries.map(entry => CleanText.get.checksum(entry, 'sha256'));
             expect(checksums[0]).to.equal(checksums[1]);
             expect(checksums[2]).to.not.equal(checksums[0]);
             expect(checksums[2]).to.not.equal(checksums[1]);

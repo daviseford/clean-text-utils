@@ -23,6 +23,11 @@ console.log(txt)
 ## .get
 
 `cleanTextUtils.get.checksum` - Given any data, returns a unique checksum. Pass in `md5` or `sha1` for different algorithims. `sha256` is enabled by default.
+## .is
+
+`cleanTextUtils.is.hexCode` - Returns `true` if the given string is a hex code, such as `#CCC` or `#FA5732`.
+
+
 ## .strip
 
 `cleanTextUtils.strip.bom` - Remove UTF8 Byte Order Marks from a string.

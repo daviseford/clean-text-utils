@@ -10,17 +10,21 @@ const Module: IModule = {
         checksum: TextUtils.checksum,
     },
 
-    strip: {
-        bom: TextUtils.stripBom,
-        emoji: TextUtils.stripEmoji,
-        extraSpace: TextUtils.stripExtraSpace,
-        nonASCII: TextUtils.stripNonASCII,
+    is: {
+        hexCode: TextUtils.isHexCode,
     },
 
     replace: {
         diacritics: TextUtils.replaceDiacritics,
         exoticChars: TextUtils.replaceExoticChars,
         smartChars: TextUtils.replaceSmartChars,
+    },
+
+    strip: {
+        bom: TextUtils.stripBom,
+        emoji: TextUtils.stripEmoji,
+        extraSpace: TextUtils.stripExtraSpace,
+        nonASCII: TextUtils.stripNonASCII,
     },
 
 };

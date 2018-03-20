@@ -1,6 +1,7 @@
 export interface ITextUtils {
-    checksum: (data: any) => string;
+    checksum: (data: any, algorithm: string) => string;
     cleanText: (data: any) => any;
+    isHexCode: (txt: string) => boolean;
     replaceDiacritics: (text: string) => string;
     replaceSmartChars: (text: string) => string;
     replaceExoticChars: (text: string) => string;

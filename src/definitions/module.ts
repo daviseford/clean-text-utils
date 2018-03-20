@@ -1,5 +1,11 @@
+import { ITextUtils } from './utils';
+
 export interface IModuleGet {
-    checksum: (content: any) => string;
+    checksum: ITextUtils['checksum'];
+}
+
+export interface IModuleIs {
+    hexCode: (txt: string) => boolean;
 }
 
 export interface IModuleStrip {
@@ -17,6 +23,7 @@ export interface IModuleReplace {
 
 export interface IModule {
     get: IModuleGet;
+    is: IModuleIs;
     strip: IModuleStrip;
     replace: IModuleReplace;
 }

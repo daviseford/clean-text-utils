@@ -78,10 +78,19 @@ const superCleanText = (data: any): string | null => {
     txt = stripNonASCII(txt);
     return txt;
 };
+/**
+ * Determines if a string is a hex code.
+ * Matches both #FFF and #FFFFFF variants
+ *
+ * @param {string} txt
+ * @returns {boolean}
+ */
+const isHexCode = (txt: string): boolean => /(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)/i.test(txt);
 
 const TextUtils: ITextUtils = {
     checksum,
     cleanText,
+    isHexCode,
     replaceDiacritics,
     replaceExoticChars,
     replaceSmartChars,

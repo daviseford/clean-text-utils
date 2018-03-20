@@ -18,17 +18,17 @@ const get_algorithm = (algorithm: string): string => {
  * Pass any Javascript type in here and get a unique checksum
  * Defaults to sha256, but can be changed.
  *
- * @param {*} content
+ * @param {*} data
  * @param {string} algorithm
  * @returns {string}
  */
-const checksum = (content: any, algorithm: string): string => {
-    content = content ? content : '0000000000000000';
+const checksum = (data: any, algorithm: string): string => {
+    data = data ? data : '0000000000000000';
     algorithm = get_algorithm(algorithm);
-    if (typeof content === 'string') {
-        return crypto.createHash(algorithm).update(content).digest('hex');
+    if (typeof data === 'string') {
+        return crypto.createHash(algorithm).update(data).digest('hex');
     } else {
-        return checksum(JSON.stringify(content).replace(/\s+/g, ''), algorithm);
+        return checksum(JSON.stringify(data).replace(/\s+/g, ''), algorithm);
     }
 };
 
