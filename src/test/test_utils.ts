@@ -1,7 +1,6 @@
 export { };
 
 import { IModule } from '../definitions/module';
-import { ITextUtils } from '../definitions/utils';
 
 const { expect } = require('chai');
 const path = require('path');
@@ -63,7 +62,7 @@ describe('Utils', () => {
                 { text: 'yo what up, checksum me', algo: 'md5' },
                 { text: 'yo what up, checksum me', algo: 'WHAT THE F IS AN AL GO RYTYHM' },
             ];
-            const checksums = entries.map(entry => checksum(entry.text, entry.algo));
+            const checksums = entries.map(entry => CleanText.get.checksum(entry.text, entry.algo));
             expect(checksums[0]).to.not.equal(checksums[1]);
             expect(checksums[0]).to.not.equal(checksums[2]);
             expect(checksums[0]).to.equal(checksums[3]);
