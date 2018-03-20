@@ -1,6 +1,3 @@
 export { };
-
-const a_func = () => console.log('Hello!')
-module.exports.something = {
-    a_func
-}
+const Module = require('./module/clean-text-util');
+module.exports = Module;
