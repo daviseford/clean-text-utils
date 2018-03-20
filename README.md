@@ -8,14 +8,13 @@ A collection of various text utilities that I've reached for and found lacking i
 `npm install clean-text-utils --save`
 
 ```javascript
-const CleanText = require('clean-text-utils');
+const cleanTextUtils = require('clean-text-utils');
 
+let txt = 'Iлｔèｒｎ, get rid of these so-called “💩emoji💩”';
 // Let's clean this up
-const txt = 'Iлｔèｒｎ, get rid of these so-called “💩emoji💩”';
-
-let fixed = CleanText.strip.emoji(txt)          // remove emoji
-fixed = CleanText.replace.diacritics(fixed);    // remove internationalization characters
-fixed = CleanText.replace.smartChars(fixed)     // remove smart characters
+txt = cleanTextUtils.strip.emoji(txt);
+txt = cleanTextUtils.replace.diacritics(txt);
+txt = cleanTextUtils.replace.smartChars(txt);
 console.log(fixed)
 >>> 'Intern, get rid of these so-called "emoji"'
 ```
@@ -23,21 +22,21 @@ console.log(fixed)
 # Methods
 ## .get
 
-`CleanText.get.checksum` - Given any data, returns a unique checksum. Pass in `md5` or `sha1` for different algorithims. `sha256` is enabled by default.
+`cleanTextUtils.get.checksum` - Given any data, returns a unique checksum. Pass in `md5` or `sha1` for different algorithims. `sha256` is enabled by default.
 ## .strip
 
-`CleanText.strip.bom` - Remove UTF8 Byte Order Marks from a string.
+`cleanTextUtils.strip.bom` - Remove UTF8 Byte Order Marks from a string.
 
-`CleanText.strip.extraSpace` - Remove any extra padding from a string.
+`cleanTextUtils.strip.extraSpace` - Remove any extra padding from a string.
 
-`CleanText.strip.emoji` - Remove emoji's from a string.
+`cleanTextUtils.strip.emoji` - Remove emoji's from a string.
 
-`CleanText.strip.nonASCII` - Remove non-ASCII characters from a string.
+`cleanTextUtils.strip.nonASCII` - Remove non-ASCII characters from a string.
 
 ## .replace
 
-`CleanText.replace.diacritics` - Replace diacritics with their sensible alternatives
+`cleanTextUtils.replace.diacritics` - Replace diacritics with their sensible alternatives
 
-`CleanText.replace.exoticChars` - Replace diacritics, remove UTF8 BOM, and replace smart characters from a string.
+`cleanTextUtils.replace.exoticChars` - Replace diacritics, remove UTF8 BOM, and replace smart characters from a string.
 
-`CleanText.replace.smartChars` - Replace smart characters.
+`cleanTextUtils.replace.smartChars` - Replace smart characters.
