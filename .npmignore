@@ -1,0 +1,8 @@
+node_modules/
+src/
+.eslintrc.js
+tsconfig.json
+tslint.json
+typings.json
+typings
+dist/test
