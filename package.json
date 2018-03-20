@@ -3,6 +3,7 @@
   "version": "1.0.1",
   "description": "A Swiss Army Knife of text operations. Great for removing smart quotes, non-ASCII characters, and more.",
   "main": "dist/index.js",
+  "types" : "dist/index.d.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/daviseford/clean-text-utils.git"
@@ -12,9 +13,8 @@
   },
   "homepage": "https://github.com/daviseford/clean-text-utils/#readme",
   "scripts": {
-    "test": "npm run build && mocha",
-    "build": "rm -rf dist/ && tsc",
-    "start": "npm run build && node ./dist/index.js"
+    "test": "npm run build && mocha dist/test",
+    "build": "rm -rf dist/ && tsc"
   },
   "keywords": [
     "text",

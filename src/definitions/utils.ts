@@ -7,5 +7,5 @@ export interface ITextUtils {
     stripBom: (text: string) => string;
     stripNonASCII: (text: string) => string;
     stripEmoji: (text: string) => string;
-    superCleanText: (data: any) => string|void;
+    superCleanText: (data: any) => string | null;
 }

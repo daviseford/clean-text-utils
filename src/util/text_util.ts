@@ -62,7 +62,7 @@ const cleanText: ITextUtils['cleanText'] = (data) => typeof data !== 'string' ? 
  * Takes pretty extreme precautions with text
  *
  * @param {*} data
- * @returns {(string | void)}
+ * @returns {(string | null)}
  */
 const superCleanText: ITextUtils['superCleanText'] = (data) => {
     if (!data || typeof data !== 'string') { return null; }

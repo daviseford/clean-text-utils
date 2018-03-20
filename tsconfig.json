@@ -1,14 +1,15 @@
 {
   "compilerOptions": {
-    "allowJs": true,
+    "allowJs": false,
+    "declaration": true,
     "jsx": "react",
     "lib": ["esnext"],
-    "module": "es6",
+    "module": "commonjs",
     "removeComments": true,
-    "noImplicitAny": false,
+    "noImplicitAny": true,
     "outDir": "./dist/",
     "pretty": true,
     "target": "es5",
-    "sourceMap": true
+    "strict": true
   }
 }
