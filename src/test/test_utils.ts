@@ -3,7 +3,6 @@ export { };
 import { IModule } from '../definitions/module';
 
 const { expect } = require('chai');
-const path = require('path');
 const CleanText: IModule = require('../module/clean-text-util');
 const checksum = require('../util/checksum');
 
