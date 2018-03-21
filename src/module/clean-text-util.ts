@@ -28,4 +28,5 @@ const Module: IModule = {
     },
 
 };
-module.exports = Module;
+
+export = Module;

@@ -93,4 +93,4 @@ const TextUtils: ITextUtils = {
     superCleanText,
 };
 
-module.exports = TextUtils;
+export = TextUtils;
