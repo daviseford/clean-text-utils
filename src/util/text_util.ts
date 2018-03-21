@@ -1,9 +1,9 @@
 export { };
 import { ITextUtils } from '../definitions/utils';
 const checksum = require('./checksum');
-const emojiRegex = require('emoji-regex');
-const replaceDiacritics = require('diacritics').remove;
-const stripBom = require('strip-bom');
+const stripEmoji = require('./emoji-regex');
+const replaceDiacritics = require('./diacritic').remove;
+const stripBom = require('./strip-bom');
 
 /**
  * Removes any instances of multiple whitespace characters in a row.
@@ -20,14 +20,6 @@ const stripExtraSpace = (text: string): string => text.replace(/\s{2,}/gm, ' ').
  * @returns {string}
  */
 const stripNonASCII = (text: string): string => text.replace(/[^\x00-\x7F]/g, '').trim();
-
-/**
- * Remove emojis from a string
- *
- * @param {string} text
- * @returns {string}
- */
-const stripEmoji = (text: string): string => text.replace(emojiRegex(), '').trim();
 
 /**
  * Removes emojis, diacritics, and UTF-8 Byte Order Marks
@@ -53,7 +45,7 @@ const replaceSmartChars = (text: string): string => {
         .replace(/[‘’\u2018\u2019\u201A]/g, '\'')   // smart single quotes and apostrophe
         .replace(/[“”\u201C\u201D\u201E]/g, '"')    // smart double quotes
         .replace(/\u2026/g, '...')                  // ellipsis
-        .replace(/[\u2013\u2014]/g, '-');           // dashes
+        .replace(/[\u2013\u2014]/g, '-');           // em dashes
     return s.trim();
 };
 
