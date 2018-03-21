@@ -1,11 +1,11 @@
 # clean-text-utils
-### By Davis E Ford
+#### By Davis E. Ford - daviseford.com
 
-A collection of various text utilities that I've reached for and found lacking in Javascript.
+A Swiss Army Knife of text operations. Great for removing smart quotes, non-ASCII characters, and more.
 
 # Usage
 
-`npm install clean-text-utils --save`
+`npm i clean-text-utils --save`
 
 ```javascript
 import * as cleanTextUtils from 'clean-text-utils';
@@ -34,9 +34,9 @@ console.log(txt)
 
 `cleanTextUtils.strip.bom` - Remove UTF8 Byte Order Marks from a string.
 
-`cleanTextUtils.strip.extraSpace` - Remove any extra padding from a string.
-
 `cleanTextUtils.strip.emoji` - Remove emoji's from a string.
+
+`cleanTextUtils.strip.extraSpace` - Remove any extra padding from a string.
 
 `cleanTextUtils.strip.nonASCII` - Remove non-ASCII characters from a string.
 
