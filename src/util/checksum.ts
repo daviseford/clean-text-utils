@@ -32,4 +32,4 @@ const checksum = (data: any, algorithm: string): string => {
     }
 };
 
-module.exports = checksum;
+export = checksum;

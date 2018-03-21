@@ -1,4 +1,3 @@
-
 /**
  *
  * The MIT License (MIT)
@@ -22,6 +21,7 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
+ *
  * Strips UTF8 Byte Order Mark from a string
  *
  * @param {string} x
@@ -33,10 +33,7 @@ const stripBom = (x: string): string => {
     }
     // Catches EFBBBF (UTF-8 BOM) because the buffer-to-string
     // conversion translates it to FEFF (UTF-16 BOM)
-    if (x.charCodeAt(0) === 0xFEFF) {
-        return x.slice(1);
-    }
-    return x;
+    return x.charCodeAt(0) === 0xFEFF ? x.slice(1) : x;
 };
 
 export = stripBom;

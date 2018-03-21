@@ -2,7 +2,7 @@ export { };
 import { ITextUtils } from '../definitions/utils';
 const checksum = require('./checksum');
 const stripEmoji = require('./emoji-regex');
-const replaceDiacritics = require('./diacritic').remove;
+const replaceDiacritics = require('./diacritic');
 const stripBom = require('./strip-bom');
 
 /**
