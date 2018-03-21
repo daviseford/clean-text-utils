@@ -1,10 +1,7 @@
 export { };
-
+import { expect } from 'chai';
 import { IModule } from '../definitions/module';
-
-const { expect } = require('chai');
-const CleanText: IModule = require('../module/clean-text-util');
-const checksum = require('../util/checksum');
+import CleanText from '../module/clean-text-util';
 
 describe('Utils', () => {
 

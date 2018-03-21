@@ -1,8 +1,6 @@
 export { };
 import { IModule } from '../definitions/module';
-import { ITextUtils } from '../definitions/utils';
-
-const TextUtils: ITextUtils = require('../util/text_util');
+import TextUtils from '../util/text-util';
 
 const Module: IModule = {
 
@@ -29,4 +27,4 @@ const Module: IModule = {
 
 };
 
-export = Module;
+export default Module;

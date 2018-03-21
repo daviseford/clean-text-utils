@@ -1,9 +1,9 @@
 export { };
 import { ITextUtils } from '../definitions/utils';
-const checksum = require('./checksum');
-const stripEmoji = require('./emoji-regex');
-const replaceDiacritics = require('./diacritic');
-const stripBom = require('./strip-bom');
+import checksum from './checksum';
+import replaceDiacritics from './diacritic';
+import stripEmoji from './emoji-regex';
+import stripBom from './strip-bom';
 
 /**
  * Removes any instances of multiple whitespace characters in a row.
@@ -93,4 +93,4 @@ const TextUtils: ITextUtils = {
     superCleanText,
 };
 
-export = TextUtils;
+export default TextUtils;

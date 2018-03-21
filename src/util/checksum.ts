@@ -1,5 +1,5 @@
 export { };
-const crypto = require('crypto');
+import * as crypto from 'crypto';
 
 /**
  * Returns a valid checksumming algorithm, no matter what
@@ -32,4 +32,4 @@ const checksum = (data: any, algorithm: string): string => {
     }
 };
 
-export = checksum;
+export default checksum;

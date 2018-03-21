@@ -333,4 +333,4 @@ const removeDiacritics = (str: string): string => {
     return str.replace(/[^\u0000-\u007e]/g, (c) => diacriticsMap[c] || c);
 };
 
-export = removeDiacritics;
+export default removeDiacritics;
