@@ -1,8 +1,6 @@
 export { };
 import { ITextUtils } from '../definitions/utils';
-import checksum from './checksum';
 import replaceDiacritics from './diacritic';
-import stripEmoji from './emoji-regex';
 import stripBom from './strip-bom';
 
 /**
@@ -50,27 +48,6 @@ const replaceSmartChars = (text: string): string => {
 };
 
 /**
- * Strips text of nasty little boogers, if necessary
- * Ignores everything else
- *
- * @param {*} data
- * @returns {*}
- */
-const cleanText = (data: any): any => typeof data !== 'string' ? data : replaceSmartChars(data);
-
-/**
- * Takes pretty extreme precautions with text
- *
- * @param {*} data
- * @returns {(string | null)}
- */
-const superCleanText = (data: any): string | null => {
-    if (!data || typeof data !== 'string') { return null; }
-    let txt = replaceExoticChars(data);
-    txt = stripNonASCII(txt);
-    return txt;
-};
-/**
  * Determines if a string is a hex code.
  * Matches both #FFF and #FFFFFF variants
  *
@@ -88,18 +65,12 @@ const isHexCode = (txt: string): boolean => /(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)/i
 const getFileName = (url: string): string => url.substring(url.lastIndexOf('/') + 1);
 
 const TextUtils: ITextUtils = {
-    checksum,
-    cleanText,
     getFileName,
     isHexCode,
-    replaceDiacritics,
     replaceExoticChars,
     replaceSmartChars,
-    stripBom,
-    stripEmoji,
     stripExtraSpace,
     stripNonASCII,
-    superCleanText,
 };
 
 export default TextUtils;

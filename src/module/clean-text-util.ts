@@ -1,11 +1,16 @@
 export { };
 import { IModule } from '../definitions/module';
+import checksum from '../util/checksum';
+import replaceDiacritics from '../util/diacritic';
+import stripEmoji from '../util/emoji-regex';
+import stripBom from '../util/strip-bom';
+import stripGutenberg from '../util/strip-gutenberg';
 import TextUtils from '../util/text-util';
 
 const Module: IModule = {
 
     get: {
-        checksum: TextUtils.checksum,
+        checksum,
         filename: TextUtils.getFileName,
     },
 
@@ -14,15 +19,16 @@ const Module: IModule = {
     },
 
     replace: {
-        diacritics: TextUtils.replaceDiacritics,
+        diacritics: replaceDiacritics,
         exoticChars: TextUtils.replaceExoticChars,
         smartChars: TextUtils.replaceSmartChars,
     },
 
     strip: {
-        bom: TextUtils.stripBom,
-        emoji: TextUtils.stripEmoji,
+        bom: stripBom,
+        emoji: stripEmoji,
         extraSpace: TextUtils.stripExtraSpace,
+        gutenberg: stripGutenberg,
         nonASCII: TextUtils.stripNonASCII,
     },
 

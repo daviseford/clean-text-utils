@@ -1,3 +1,4 @@
+/* tslint:disable:max-line-length */
 export { };
 import { expect } from 'chai';
 import { IModule } from '../definitions/module';
@@ -45,31 +46,29 @@ describe('Utils', () => {
 
     });
 
-    describe('Checksum Util', () => {
-        it('should generate unique checksums for different workbooks', () => {
-            const entries = [
-                { astring: 'splendied', an_array: [{}, {}, { d: 'b' }] },
-                { astring: 'splendied', an_array: [{}, {}, { d: 'b' }] },
-                'a simple little string',
-            ];
-            const checksums = entries.map(entry => CleanText.get.checksum(entry, 'sha256'));
-            expect(checksums[0]).to.equal(checksums[1]);
-            expect(checksums[2]).to.not.equal(checksums[0]);
-            expect(checksums[2]).to.not.equal(checksums[1]);
-        });
+    it('should generate unique checksums for different data structures', () => {
+        const entries = [
+            { astring: 'splendied', an_array: [{}, {}, { d: 'b' }] },   // same as below
+            { astring: 'splendied', an_array: [{}, {}, { d: 'b' }] },   // same as above
+            ['a simple little string', null, 0, { b: 12 }],
+        ];
+        const checksums = entries.map(entry => CleanText.get.checksum(entry, 'sha256'));
+        expect(checksums[0]).to.equal(checksums[1]);
+        expect(checksums[2]).to.not.equal(checksums[0]);
+        expect(checksums[2]).to.not.equal(checksums[1]);
+    });
 
-        it('should accept different algorithms and provide a default', () => {
-            const entries = [
-                { text: 'yo what up, checksum me', algo: 'sha256' },
-                { text: 'yo what up, checksum me', algo: 'sha1' },
-                { text: 'yo what up, checksum me', algo: 'md5' },
-                { text: 'yo what up, checksum me', algo: 'WHAT THE F IS AN AL GO RYTYHM' },
-            ];
-            const checksums = entries.map(entry => CleanText.get.checksum(entry.text, entry.algo));
-            expect(checksums[0]).to.not.equal(checksums[1]);
-            expect(checksums[0]).to.not.equal(checksums[2]);
-            expect(checksums[0]).to.equal(checksums[3]);
-        });
+    it('should accept different checksum algorithms and provide a default', () => {
+        const entries = [
+            { text: 'yo what up, checksum me', algo: 'sha256' },
+            { text: 'yo what up, checksum me', algo: 'sha1' },
+            { text: 'yo what up, checksum me', algo: 'md5' },
+            { text: 'yo what up, checksum me', algo: 'WHAT THE F IS AN AL GO RYTYHM' },
+        ];
+        const checksums = entries.map(entry => CleanText.get.checksum(entry.text, entry.algo));
+        expect(checksums[0]).to.not.equal(checksums[1]);
+        expect(checksums[0]).to.not.equal(checksums[2]);
+        expect(checksums[0]).to.equal(checksums[3]);
     });
 
 });

@@ -38,6 +38,8 @@ console.log(txt)
 
 `cleanTextUtils.strip.extraSpace` - Remove any extra padding from a string.
 
+`cleanTextUtils.strip.gutenberg` - Remove [Project Gutenberg](http://www.gutenberg.org/browse/scores/top) header/footer watermarks for further processing.
+
 `cleanTextUtils.strip.nonASCII` - Remove non-ASCII characters from a string.
 
 ## .replace

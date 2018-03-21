@@ -1,8 +1,6 @@
-import { ITextUtils } from './utils';
-
 export interface IModuleGet {
-    checksum: ITextUtils['checksum'];
-    filename: ITextUtils['getFileName'];
+    checksum: (data: any, algorithm: string) => string;
+    filename: (text: string) => string;
 }
 
 export interface IModuleIs {
@@ -13,6 +11,7 @@ export interface IModuleStrip {
     bom: (text: string) => string;
     extraSpace: (text: string) => string;
     emoji: (text: string) => string;
+    gutenberg: (text: string) => string;
     nonASCII: (text: string) => string;
 }
 
