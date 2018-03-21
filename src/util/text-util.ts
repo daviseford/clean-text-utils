@@ -79,9 +79,18 @@ const superCleanText = (data: any): string | null => {
  */
 const isHexCode = (txt: string): boolean => /(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)/i.test(txt);
 
+/**
+ * Given a filepath or URL, returns the filename
+ *
+ * @param {string} url
+ * @returns {string}
+ */
+const getFileName = (url: string): string => url.substring(url.lastIndexOf('/') + 1);
+
 const TextUtils: ITextUtils = {
     checksum,
     cleanText,
+    getFileName,
     isHexCode,
     replaceDiacritics,
     replaceExoticChars,

@@ -2,6 +2,7 @@ import { ITextUtils } from './utils';
 
 export interface IModuleGet {
     checksum: ITextUtils['checksum'];
+    filename: ITextUtils['getFileName'];
 }
 
 export interface IModuleIs {

@@ -6,6 +6,7 @@ const Module: IModule = {
 
     get: {
         checksum: TextUtils.checksum,
+        filename: TextUtils.getFileName,
     },
 
     is: {

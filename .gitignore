@@ -3,3 +3,4 @@ dist/
 .idea
 .vscode
 .git
+yarn-error.log

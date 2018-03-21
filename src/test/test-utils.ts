@@ -36,6 +36,13 @@ describe('Utils', () => {
             expect(CleanText.is.hexCode(no_hex)).to.equal(false);
         });
 
+        it('should get filenames from urls and filepaths', () => {
+            const url = 'https://daviseford.com/blog/sample.html';
+            const filepath = '/Users/davisford/Documents/clean-text-utils/src/util/diacritic.ts';
+            expect(CleanText.get.filename(url)).to.equal('sample.html');
+            expect(CleanText.get.filename(filepath)).to.equal('diacritic.ts');
+        });
+
     });
 
     describe('Checksum Util', () => {

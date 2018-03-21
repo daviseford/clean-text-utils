@@ -8,7 +8,7 @@ A collection of various text utilities that I've reached for and found lacking i
 `npm install clean-text-utils --save`
 
 ```javascript
-const cleanTextUtils = require('clean-text-utils');
+import * as cleanTextUtils from 'clean-text-utils';
 
 let txt = 'Iлｔèｒｎ, get rid of these so-called “💩emoji💩”';
 // Let's clean this up
@@ -23,6 +23,8 @@ console.log(txt)
 ## .get
 
 `cleanTextUtils.get.checksum` - Given any data, returns a unique checksum. Pass in `md5` or `sha1` for different algorithims. `sha256` is enabled by default.
+
+`cleanTextUtils.get.filename` - Given a url or filepath, returns the filename.
 ## .is
 
 `cleanTextUtils.is.hexCode` - Returns `true` if the given string is a hex code, such as `#CCC` or `#FA5732`.
@@ -45,3 +47,7 @@ console.log(txt)
 `cleanTextUtils.replace.exoticChars` - Replace diacritics, remove UTF8 BOM, and replace smart characters from a string.
 
 `cleanTextUtils.replace.smartChars` - Replace smart characters.
+
+# Typings
+
+TypeScript definitions are automatically installed. Simply `import * as cleanTextUtils from 'clean-text-utils'` to use built in types. :)
