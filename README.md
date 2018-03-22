@@ -25,6 +25,8 @@ console.log(txt)
 `cleanTextUtils.get.checksum` - Given any data, returns a unique checksum. Pass in `md5` or `sha1` for different algorithims. `sha256` is enabled by default.
 
 `cleanTextUtils.get.filename` - Given a url or filepath, returns the filename.
+
+`cleanTextUtils.get.reversed` - Reverses a string. Unicode aware.
 ## .is
 
 `cleanTextUtils.is.hexCode` - Returns `true` if the given string is a hex code, such as `#CCC` or `#FA5732`.
@@ -50,6 +52,8 @@ console.log(txt)
 
 `cleanTextUtils.replace.smartChars` - Replace smart characters.
 
-# Typings
+## Typings
 
-TypeScript definitions are automatically installed. Simply `import * as cleanTextUtils from 'clean-text-utils'` to use built in types. :)
+TypeScript definitions are automatically installed.
+
+`import * as cleanTextUtils from 'clean-text-utils'` to use built in types. :)

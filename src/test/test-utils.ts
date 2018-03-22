@@ -44,6 +44,12 @@ describe('Utils', () => {
             expect(CleanText.get.filename(filepath)).to.equal('diacritic.ts');
         });
 
+        it('should get reversed string', () => {
+            const str = '💩emoji💪';
+            const expected = '💪ijome💩';
+            expect(CleanText.get.reversed(str)).to.equal(expected);
+        });
+
     });
 
     it('should generate unique checksums for different data structures', () => {

@@ -1,6 +1,7 @@
 export interface IModuleGet {
     checksum: (data: any, algorithm: string) => string;
     filename: (text: string) => string;
+    reversed: (text: string) => string;
 }
 
 export interface IModuleIs {
