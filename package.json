@@ -1,6 +1,6 @@
 {
   "name": "clean-text-utils",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "description": "A Swiss Army Knife of text operations. Great for removing smart quotes, non-ASCII characters, and more.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
