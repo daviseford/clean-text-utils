@@ -29,7 +29,7 @@ console.log(txt)
 `cleanTextUtils.get.reversed` - Reverses a string. Unicode aware.
 ## .is
 
-`cleanTextUtils.is.hexCode` - Returns `true` if the given string is a hex code, such as `#CCC` or `#FA5732`.
+`cleanTextUtils.is.hexCode` - Returns `true` if the given string is a hex code, such as `#FFF` or `#FA5732`.
 
 
 ## .strip
