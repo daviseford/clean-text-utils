@@ -1,27 +1,28 @@
 import * as crypto from 'crypto';
-import { Algorithms } from '../definitions/module';
+import { Algorithm } from '../definitions/module';
 
 /**
  * Returns a valid checksumming algorithm, no matter what
  *
- * @param {string} algorithm
- * @returns {string}
+ * @param {*} algorithm
+ * @returns {Algorithm}
  */
-const get_algorithm = (algorithm: Algorithms): Algorithms => {
-    const default_algo = 'sha256';
+const get_algorithm = (algorithm: any): Algorithm => {
+    const default_algo: Algorithm = 'sha256';
     if (!algorithm || typeof algorithm !== 'string') { return default_algo; }
+    algorithm = algorithm as Algorithm;
     return ['sha', 'sha1', 'sha256', 'sha512', 'md5'].includes(algorithm) ? algorithm : default_algo;
 };
 
 /**
- * Pass any Javascript type in here and get a unique checksum
+ * Pass any Javascript data type in here and get a unique checksum
  * Defaults to sha256, but can be changed.
  *
  * @param {*} data
- * @param {string} algorithm
+ * @param {Algorithm} [algorithm]
  * @returns {string}
  */
-const checksum = (data: any, algorithm: 'sha' | 'sha1' | 'sha256' | 'sha512' | 'md5'): string => {
+const checksum = (data: any, algorithm?: Algorithm): string => {
     data = data ? data : '0000000000000000';
     algorithm = get_algorithm(algorithm);
     if (typeof data === 'string') {
