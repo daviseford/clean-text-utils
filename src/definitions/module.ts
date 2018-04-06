@@ -1,5 +1,5 @@
 export interface IModuleGet {
-    checksum: (data: any, algorithm: string) => string;
+    checksum: (data: any, algorithm: 'sha' | 'sha1' | 'sha256' | 'sha512' | 'md5') => string;
     filename: (text: string) => string;
     reversed: (text: string) => string;
 }
