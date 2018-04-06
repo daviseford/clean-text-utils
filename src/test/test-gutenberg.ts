@@ -1,5 +1,4 @@
 /* tslint:disable:max-line-length */
-export { };
 import { expect } from 'chai';
 import CleanText from '../module/clean-text-util';
 

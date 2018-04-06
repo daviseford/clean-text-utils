@@ -1,9 +1,10 @@
 # clean-text-utils
-#### By Davis E. Ford - daviseford.com
 
-A Swiss Army Knife of text operations. Great for removing smart quotes, non-ASCII characters, and more.
+## By Davis E. Ford - [daviseford.com](https://daviseford.com)
 
-# Usage
+A Swiss Army Knife of text operations. Great for removing smart quotes, non-ASCII characters, emojis, and more.
+
+## Usage
 
 `npm i clean-text-utils --save`
 
@@ -19,24 +20,25 @@ console.log(txt)
 >>> 'Intern, get rid of these so-called "emoji"'
 ```
 
-# Methods
-## .get
+## Methods
 
-`cleanTextUtils.get.checksum` - Given any data, returns a unique checksum. Pass in `md5` or `sha1` for different algorithims. `sha256` is enabled by default.
+### .get
+
+`cleanTextUtils.get.checksum` - Given any data, returns a unique checksum. Pass in `md5` or `sha1` for different algorithms. `sha256` is enabled by default.
 
 `cleanTextUtils.get.filename` - Given a url or filepath, returns the filename.
 
 `cleanTextUtils.get.reversed` - Reverses a string. Unicode aware.
-## .is
+
+### .is
 
 `cleanTextUtils.is.hexCode` - Returns `true` if the given string is a hex code, such as `#FFF` or `#FA5732`.
 
-
-## .strip
+### .strip
 
 `cleanTextUtils.strip.bom` - Remove UTF8 Byte Order Marks from a string.
 
-`cleanTextUtils.strip.emoji` - Remove emoji's from a string.
+`cleanTextUtils.strip.emoji` - Remove emojii from a string.
 
 `cleanTextUtils.strip.extraSpace` - Remove any extra padding from a string.
 
@@ -44,7 +46,7 @@ console.log(txt)
 
 `cleanTextUtils.strip.nonASCII` - Remove non-ASCII characters from a string.
 
-## .replace
+### .replace
 
 `cleanTextUtils.replace.diacritics` - Replace diacritics with their sensible alternatives
 
@@ -52,7 +54,7 @@ console.log(txt)
 
 `cleanTextUtils.replace.smartChars` - Replace smart characters.
 
-## Typings
+## Types
 
 TypeScript definitions are automatically installed.
 

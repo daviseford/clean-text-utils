@@ -1,4 +1,3 @@
-export { };
 import { IModule } from '../definitions/module';
 import checksum from '../util/checksum';
 import replaceDiacritics from '../util/diacritic';

@@ -1,4 +1,3 @@
-export { };
 import { ITextUtils } from '../definitions/utils';
 import replaceDiacritics from './diacritic';
 import stripBom from './strip-bom';
