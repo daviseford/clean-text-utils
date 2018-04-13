@@ -10,6 +10,7 @@ import TextUtils from '../util/text-util';
 const Module: IModule = {
 
     get: {
+        capitalized: TextUtils.capitalizeWord,
         checksum,
         filename: TextUtils.getFileName,
         reversed: esrever,

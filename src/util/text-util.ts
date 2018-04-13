@@ -63,7 +63,16 @@ const isHexCode = (txt: string): boolean => /(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)/i
  */
 const getFileName = (url: string): string => url.substring(url.lastIndexOf('/') + 1);
 
+/**
+ * Capitalizes the first character in a string
+ *
+ * @param {string} word
+ * @returns {string}
+ */
+const capitalizeWord = (word: string): string => word[0].toUpperCase() + word.slice(1);
+
 const TextUtils: ITextUtils = {
+    capitalizeWord,
     getFileName,
     isHexCode,
     replaceExoticChars,

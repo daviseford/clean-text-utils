@@ -19,10 +19,10 @@ const get_algorithm = (algorithm: any): Algorithm => {
  * Defaults to sha256, but can be changed.
  *
  * @param {*} data
- * @param {Algorithm} [algorithm]
+ * @param {string} [algorithm]
  * @returns {string}
  */
-const checksum = (data: any, algorithm?: Algorithm): string => {
+const checksum = (data: any, algorithm?: string): string => {
     data = data ? data : '0000000000000000';
     algorithm = get_algorithm(algorithm);
     if (typeof data === 'string') {

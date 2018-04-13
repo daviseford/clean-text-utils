@@ -49,6 +49,12 @@ describe('Utils', () => {
             expect(CleanText.get.reversed(str)).to.equal(expected);
         });
 
+        it('should get capitalized version of a string', () => {
+            const str = 'the B.I.G. boy.';
+            const expected = 'The B.I.G. boy.';
+            expect(CleanText.get.capitalized(str)).to.equal(expected);
+        });
+
     });
 
     it('should generate unique checksums for different data structures', () => {

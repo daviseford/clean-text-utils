@@ -1,6 +1,7 @@
 export type Algorithm = 'sha' | 'sha1' | 'sha256' | 'sha512' | 'md5';
 export interface IModuleGet {
-    checksum: (data: any, algorithm?: Algorithm) => string;
+    capitalized: (text: string) => string;
+    checksum: (data: any, algorithm?: string) => string;
     filename: (text: string) => string;
     reversed: (text: string) => string;
 }

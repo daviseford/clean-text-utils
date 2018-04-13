@@ -24,6 +24,8 @@ console.log(txt)
 
 ### .get
 
+`cleanTextUtils.get.capitalized` - Capitalizes the first character of a given string.
+
 `cleanTextUtils.get.checksum` - Given any data, returns a unique checksum. Pass in `md5` or `sha1` for different algorithms. `sha256` is enabled by default.
 
 `cleanTextUtils.get.filename` - Given a url or filepath, returns the filename.
