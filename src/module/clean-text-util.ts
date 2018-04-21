@@ -32,6 +32,7 @@ const Module: IModule = {
         extraSpace: TextUtils.stripExtraSpace,
         gutenberg: stripGutenberg,
         nonASCII: TextUtils.stripNonASCII,
+        punctuation: TextUtils.stripPunctuation,
     },
 
 };

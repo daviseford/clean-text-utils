@@ -6,4 +6,5 @@ export interface ITextUtils {
     replaceExoticChars: (text: string) => string;
     stripExtraSpace: (text: string) => string;
     stripNonASCII: (text: string) => string;
+    stripPunctuation: (text: string) => string;
 }

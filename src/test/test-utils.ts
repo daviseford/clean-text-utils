@@ -55,6 +55,12 @@ describe('Utils', () => {
             expect(CleanText.get.capitalized(str)).to.equal(expected);
         });
 
+        it('should strip common punctuation characters', () => {
+            const str = 'This., -/ is #! an $ % ^ & * example ;: {} of a = -_ string with `~)() punctuation.';
+            const expected = 'This is an example of a string with punctuation';
+            expect(CleanText.strip.punctuation(str)).to.equal(expected);
+        });
+
     });
 
     it('should generate unique checksums for different data structures', () => {

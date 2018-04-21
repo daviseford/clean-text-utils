@@ -20,6 +20,13 @@ const stripExtraSpace = (text: string): string => text.replace(/\s{2,}/gm, ' ').
 const stripNonASCII = (text: string): string => text.replace(/[^\x00-\x7F]/g, '').trim();
 
 /**
+ * Removes common punctuation characters from a string
+ *
+ * @param {string} text
+ * @returns {string}
+ */
+const stripPunctuation = (text: string): string => stripExtraSpace(text.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, ''));
+/**
  * Removes emojis, diacritics, and UTF-8 Byte Order Marks
  *
  * @param {string} text
@@ -80,6 +87,7 @@ const TextUtils: ITextUtils = {
     replaceSmartChars,
     stripExtraSpace,
     stripNonASCII,
+    stripPunctuation,
 };
 
 export default TextUtils;

@@ -48,6 +48,8 @@ console.log(txt)
 
 `cleanTextUtils.strip.nonASCII` - Remove non-ASCII characters from a string.
 
+`cleanTextUtils.strip.punctuation` - Removes common punctuation characters from a string.
+
 ### .replace
 
 `cleanTextUtils.replace.diacritics` - Replace diacritics with their sensible alternatives

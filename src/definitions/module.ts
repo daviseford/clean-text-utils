@@ -16,6 +16,7 @@ export interface IModuleStrip {
     emoji: (text: string) => string;
     gutenberg: (text: string) => string;
     nonASCII: (text: string) => string;
+    punctuation: (text: string) => string;
 }
 
 export interface IModuleReplace {
