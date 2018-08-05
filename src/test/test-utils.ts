@@ -61,6 +61,18 @@ describe('Utils', () => {
             expect(CleanText.strip.punctuation(str)).to.equal(expected);
         });
 
+        it('should strip whitespace characters', () => {
+            const str = '  \t Some    spaces here to remove ';
+            const expected = 'Somespacesheretoremove';
+            expect(CleanText.strip.whitespace(str)).to.equal(expected);
+        });
+
+        it('should strip newline characters', () => {
+            const str = 'Some \n newlines and \r carriage returns';
+            const expected = 'Some  newlines and  carriage returns';
+            expect(CleanText.strip.newlines(str)).to.equal(expected);
+        });
+
     });
 
     it('should generate unique checksums for different data structures', () => {

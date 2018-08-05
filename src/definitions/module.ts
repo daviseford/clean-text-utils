@@ -12,11 +12,13 @@ export interface IModuleIs {
 
 export interface IModuleStrip {
     bom: (text: string) => string;
-    extraSpace: (text: string) => string;
     emoji: (text: string) => string;
+    extraSpace: (text: string) => string;
     gutenberg: (text: string) => string;
+    newlines: (text: string) => string;
     nonASCII: (text: string) => string;
     punctuation: (text: string) => string;
+    whitespace: (text: string) => string;
 }
 
 export interface IModuleReplace {

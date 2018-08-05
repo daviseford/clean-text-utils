@@ -46,9 +46,13 @@ console.log(txt)
 
 `cleanTextUtils.strip.gutenberg` - Remove [Project Gutenberg](http://www.gutenberg.org/browse/scores/top) header/footer watermarks for further processing.
 
+`cleanTextUtils.strip.newlines` - Removes newline characters from a string.
+
 `cleanTextUtils.strip.nonASCII` - Remove non-ASCII characters from a string.
 
 `cleanTextUtils.strip.punctuation` - Removes common punctuation characters from a string.
+
+`cleanTextUtils.strip.whitespace` - Removes ALL whitespace characters from a string.
 
 ### .replace
 

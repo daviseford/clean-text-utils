@@ -31,8 +31,10 @@ const Module: IModule = {
         emoji: stripEmoji,
         extraSpace: TextUtils.stripExtraSpace,
         gutenberg: stripGutenberg,
+        newlines: TextUtils.stripNewLines,
         nonASCII: TextUtils.stripNonASCII,
         punctuation: TextUtils.stripPunctuation,
+        whitespace: TextUtils.stripWhitespace,
     },
 
 };

@@ -79,6 +79,18 @@ const getFileName = (url: string): string => url.substring(url.lastIndexOf(path.
  */
 const capitalizeWord = (word: string): string => word[0].toUpperCase() + word.slice(1);
 
+/**
+ * Removes any new line characters in a string
+ * @param str
+ */
+const stripNewLines = (str: string): string => str.replace(/[\n\r]/g, '');
+
+/**
+ * Removes all whitespace from a string
+ * @param str
+ */
+const stripWhitespace = (str: string): string => str.replace(/\s/g, '');
+
 const TextUtils: ITextUtils = {
     capitalizeWord,
     getFileName,
@@ -86,8 +98,10 @@ const TextUtils: ITextUtils = {
     replaceExoticChars,
     replaceSmartChars,
     stripExtraSpace,
+    stripNewLines,
     stripNonASCII,
     stripPunctuation,
+    stripWhitespace,
 };
 
 export default TextUtils;
