@@ -53,6 +53,7 @@ describe('Utils', () => {
             const str = 'the B.I.G. boy.';
             const expected = 'The B.I.G. boy.';
             expect(CleanText.get.capitalized(str)).to.equal(expected);
+            expect(CleanText.get.capitalized('')).to.equal('');
         });
 
         it('should strip common punctuation characters', () => {

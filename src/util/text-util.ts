@@ -77,7 +77,7 @@ const getFileName = (url: string): string => url.substring(url.lastIndexOf(path.
  * @param {string} word
  * @returns {string}
  */
-const capitalizeWord = (word: string): string => word[0].toUpperCase() + word.slice(1);
+const capitalizeWord = (word: string): string => word && word.length > 0 ? word[0].toUpperCase() + word.slice(1) : '';
 
 /**
  * Removes any new line characters in a string
