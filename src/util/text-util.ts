@@ -17,7 +17,7 @@ const stripExtraSpace = (text: string): string => text.replace(/\s{2,}/gm, ' ').
  * @param {string} text
  * @returns {string}
  */
-const stripNonASCII = (text: string): string => text.replace(/[^\x00-\x7F]/g, '').trim();
+const stripNonASCII = (text: string): string => text.replace(/[^\x00-\x7F]/g, '');
 
 /**
  * Removes common punctuation characters from a string
