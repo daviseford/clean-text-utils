@@ -1,4 +1,3 @@
-import * as path from "node:path";
 import type { ITextUtils } from "../definitions/utils";
 import replaceDiacritics from "./diacritic";
 import stripBom from "./strip-bom";
@@ -69,7 +68,10 @@ const isHexCode = (txt: string): boolean => /(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)/i
  * @param {string} url
  * @returns {string}
  */
-const getFileName = (url: string): string => url.substring(url.lastIndexOf(path.sep) + 1);
+const getFileName = (url: string): string => {
+  const lastSlash = Math.max(url.lastIndexOf("/"), url.lastIndexOf("\\"));
+  return url.substring(lastSlash + 1);
+};
 
 /**
  * Capitalizes the first character in a string

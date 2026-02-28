@@ -1,6 +1,6 @@
 {
   "name": "clean-text-utils",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "A Swiss Army Knife of text operations. Great for removing smart quotes, non-ASCII characters, emojis, and more.",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
@@ -61,5 +61,8 @@
     "tsup": "^8.5.1",
     "typescript": "^5.9.3",
     "vitest": "^4.0.18"
+  },
+  "dependencies": {
+    "emoji-regex": "^10.6.0"
   }
 }
