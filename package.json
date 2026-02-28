@@ -35,8 +35,7 @@
     "test:watch": "vitest",
     "lint": "biome check src/",
     "format": "biome format --write src/",
-    "size": "size-limit",
-    "size:why": "size-limit --why"
+    "size": "size-limit"
   },
   "keywords": [
     "text",

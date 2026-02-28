@@ -1,13 +1,13 @@
 [
   {
     "path": "dist/index.mjs",
-    "limit": "25 KB",
+    "limit": "10 KB",
     "gzip": true,
     "name": "ESM"
   },
   {
     "path": "dist/index.js",
-    "limit": "25 KB",
+    "limit": "10 KB",
     "gzip": true,
     "name": "CJS"
   }
