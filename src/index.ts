@@ -1,4 +1,4 @@
-import Module from './module/clean-text-util';
+import Module from "./module/clean-text-util";
 
 export const get = Module.get;
 export const is = Module.is;
