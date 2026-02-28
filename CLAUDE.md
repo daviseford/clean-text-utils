@@ -27,4 +27,8 @@ TypeScript library exposing four namespaced groups of text utilities: `get`, `is
 
 **Tests:** Single test file at `src/__tests__/clean-text-utils.test.ts` using vitest. Tests import from the module assembly layer, not individual utils.
 
-**Build:** tsup bundles `src/index.ts` into dual CJS/ESM with TypeScript declarations. Target is ES2020.
+**Build:** tsup bundles `src/index.ts` into dual CJS/ESM with TypeScript declarations. Target is ES2022.
+
+**Linting:** Biome handles both linting and formatting. Run `npm run lint` to check, `npm run format` to auto-format.
+
+**CI:** GitHub Actions runs lint, build, and tests on Node 18/20/22 for pushes to master and PRs.
