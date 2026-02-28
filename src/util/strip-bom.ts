@@ -28,12 +28,12 @@
  * @returns {string}
  */
 const stripBom = (x: string): string => {
-    if (typeof x !== 'string') {
-        throw new TypeError('Expected a string, got ' + typeof x);
-    }
-    // Catches EFBBBF (UTF-8 BOM) because the buffer-to-string
-    // conversion translates it to FEFF (UTF-16 BOM)
-    return x.charCodeAt(0) === 0xFEFF ? x.slice(1) : x;
+  if (typeof x !== "string") {
+    throw new TypeError(`Expected a string, got ${typeof x}`);
+  }
+  // Catches EFBBBF (UTF-8 BOM) because the buffer-to-string
+  // conversion translates it to FEFF (UTF-16 BOM)
+  return x.charCodeAt(0) === 0xfeff ? x.slice(1) : x;
 };
 
 export default stripBom;
