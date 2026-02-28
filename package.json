@@ -34,7 +34,8 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "lint": "biome check src/",
-    "format": "biome format --write src/"
+    "format": "biome format --write src/",
+    "size": "size-limit"
   },
   "keywords": [
     "text",
@@ -54,7 +55,9 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^2.4.4",
+    "@size-limit/file": "^12.0.0",
     "@types/node": "^25.3.2",
+    "size-limit": "^12.0.0",
     "tsup": "^8.5.1",
     "typescript": "^5.9.3",
     "vitest": "^4.0.18"
