@@ -1,15 +1,14 @@
 {
   "compilerOptions": {
-    "allowJs": false,
+    "target": "es2020",
+    "module": "esnext",
+    "moduleResolution": "bundler",
     "declaration": true,
-    "jsx": "react",
-    "lib": ["esnext"],
-    "module": "commonjs",
-    "removeComments": true,
-    "noImplicitAny": true,
-    "outDir": "./dist/",
-    "pretty": true,
-    "target": "es5",
-    "strict": true
-  }
+    "strict": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "lib": ["esnext"]
+  },
+  "include": ["src"],
+  "exclude": ["src/__tests__", "src/test"]
 }
