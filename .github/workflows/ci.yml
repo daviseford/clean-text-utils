@@ -13,12 +13,29 @@ jobs:
       matrix:
         node-version: [18, 20, 22]
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
         with:
           node-version: ${{ matrix.node-version }}
           cache: npm
       - run: npm ci
       - run: npm run lint
+      - run: npm run typecheck
       - run: npm run build
+      - run: npm run test:package
       - run: npm test
+
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - run: npm run test:package
+      - run: npm run size:consumer
+      - run: npm run check:package
+      - run: npm audit

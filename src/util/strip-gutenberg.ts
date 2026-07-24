@@ -23,4 +23,5 @@ const stripGutenberg = (txt: string): string => {
   return txt;
 };
 
+export { stripGutenberg };
 export default stripGutenberg;

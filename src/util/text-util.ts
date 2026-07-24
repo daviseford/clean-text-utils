@@ -69,8 +69,9 @@ const isHexCode = (txt: string): boolean => /(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)/i
  * @returns {string}
  */
 const getFileName = (url: string): string => {
-  const lastSlash = Math.max(url.lastIndexOf("/"), url.lastIndexOf("\\"));
-  return url.substring(lastSlash + 1);
+  const path = url.split(/[?#]/, 1)[0] ?? "";
+  const lastSlash = Math.max(path.lastIndexOf("/"), path.lastIndexOf("\\"));
+  return path.substring(lastSlash + 1);
 };
 
 /**
@@ -106,4 +107,16 @@ const TextUtils: ITextUtils = {
   stripWhitespace,
 };
 
+export {
+  capitalizeWord as capitalize,
+  getFileName as filename,
+  isHexCode,
+  replaceExoticChars,
+  replaceSmartChars,
+  stripExtraSpace,
+  stripNewLines as stripNewlines,
+  stripNonASCII,
+  stripPunctuation,
+  stripWhitespace,
+};
 export default TextUtils;

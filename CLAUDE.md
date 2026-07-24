@@ -11,9 +11,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Architecture
 
-TypeScript library exposing four namespaced groups of text utilities: `get`, `is`, `strip`, `replace`.
+TypeScript library exposing direct named functions and four backward-compatible namespaced groups: `get`, `is`,
+`strip`, and `replace`.
 
-**Entry point:** `src/index.ts` re-exports the namespaces from `src/module/clean-text-util.ts`.
+**Entry points:** `src/index.ts` exposes the named, default, and namespace APIs. Thin files under `src/entries/`
+produce tree-shakable package subpaths.
 
 **Module assembly:** `src/module/clean-text-util.ts` builds the public API object (`IModule`) by importing individual utility functions and wiring them into the namespace structure.
 
@@ -25,10 +27,13 @@ TypeScript library exposing four namespaced groups of text utilities: `get`, `is
 - `module.ts` — `IModule` interface defining the public API shape (get/is/strip/replace namespaces)
 - `utils.ts` — `ITextUtils` interface for the internal text-util functions
 
-**Tests:** Single test file at `src/__tests__/clean-text-utils.test.ts` using vitest. Tests import from the module assembly layer, not individual utils.
+**Tests:** Vitest tests under `src/__tests__/` cover both the namespace behavior and direct exports. The package smoke
+test validates built ESM/CJS root and subpath imports.
 
-**Build:** tsup bundles `src/index.ts` into dual CJS/ESM with TypeScript declarations. Target is ES2022.
+**Build:** tsup bundles the root and subpath entries into dual CJS/ESM with TypeScript declarations. Target is ES2022.
 
-**Linting:** Biome handles both linting and formatting. Run `npm run lint` to check, `npm run format` to auto-format.
+**Linting:** Biome handles linting and formatting for source, scripts, and the build config. Run `npm run lint` to
+check, `npm run format` to auto-format.
 
-**CI:** GitHub Actions runs lint, build, and tests on Node 18/20/22 for pushes to master and PRs.
+**CI:** GitHub Actions runs lint, type checks, builds, package smoke tests, and unit tests on Node 18/20/22. A
+separate Node 22 job validates the packed package, dependency audit, and consumer size budgets.

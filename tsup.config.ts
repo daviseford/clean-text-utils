@@ -1,13 +1,31 @@
-import { defineConfig } from 'tsup'
+import { defineConfig } from "tsup";
 
 export default defineConfig({
-  entry: ['src/index.ts'],
-  format: ['cjs', 'esm'],
+  entry: {
+    index: "src/index.ts",
+    capitalize: "src/entries/capitalize.ts",
+    checksum: "src/entries/checksum.ts",
+    filename: "src/entries/filename.ts",
+    reverse: "src/entries/reverse.ts",
+    "is/hex-code": "src/entries/is/hex-code.ts",
+    "replace/diacritics": "src/entries/replace/diacritics.ts",
+    "replace/exotic-chars": "src/entries/replace/exotic-chars.ts",
+    "replace/smart-chars": "src/entries/replace/smart-chars.ts",
+    "strip/bom": "src/entries/strip/bom.ts",
+    "strip/emoji": "src/entries/strip/emoji.ts",
+    "strip/extra-space": "src/entries/strip/extra-space.ts",
+    "strip/gutenberg": "src/entries/strip/gutenberg.ts",
+    "strip/newlines": "src/entries/strip/newlines.ts",
+    "strip/non-ascii": "src/entries/strip/non-ascii.ts",
+    "strip/punctuation": "src/entries/strip/punctuation.ts",
+    "strip/whitespace": "src/entries/strip/whitespace.ts",
+  },
+  format: ["cjs", "esm"],
   dts: true,
   clean: true,
-  outDir: 'dist',
+  outDir: "dist",
   splitting: false,
   sourcemap: false,
   minify: true,
-  target: 'es2022',
-})
+  target: "es2022",
+});

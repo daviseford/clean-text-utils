@@ -75,15 +75,15 @@ describe("get.checksum", () => {
     expect(fallback).toBe(sha256);
   });
 
-  it("handles objects by JSON-stringifying them", () => {
+  it("hashes objects", () => {
     const obj = { key: "value", nested: { a: 1 } };
     const result = CleanText.get.checksum(obj);
     expect(result).toMatch(/^[a-f0-9]{64}$/);
   });
 
-  it("produces same checksums for identical objects", () => {
+  it("produces the same checksum regardless of object key order", () => {
     const a = CleanText.get.checksum({ astring: "splendied", an_array: [{}, {}, { d: "b" }] });
-    const b = CleanText.get.checksum({ astring: "splendied", an_array: [{}, {}, { d: "b" }] });
+    const b = CleanText.get.checksum({ an_array: [{}, {}, { d: "b" }], astring: "splendied" });
     expect(a).toBe(b);
   });
 
@@ -92,14 +92,63 @@ describe("get.checksum", () => {
     expect(result).toMatch(/^[a-f0-9]{64}$/);
   });
 
-  it("handles null/undefined/falsy input with a default", () => {
-    const a = CleanText.get.checksum(null);
-    const b = CleanText.get.checksum(undefined);
-    const c = CleanText.get.checksum(0);
-    // all falsy values should still produce a checksum
-    expect(a).toMatch(/^[a-f0-9]{64}$/);
-    expect(b).toMatch(/^[a-f0-9]{64}$/);
-    expect(c).toMatch(/^[a-f0-9]{64}$/);
+  it("keeps falsy values distinct", () => {
+    const checksums = [null, undefined, 0, false, ""].map((value) => CleanText.get.checksum(value));
+
+    expect(new Set(checksums)).toHaveLength(checksums.length);
+    expect(checksums.every((value) => /^[a-f0-9]{64}$/.test(value))).toBe(true);
+  });
+
+  it("preserves whitespace inside object string values", () => {
+    expect(CleanText.get.checksum({ value: "a b" })).not.toBe(CleanText.get.checksum({ value: "ab" }));
+  });
+
+  it("rejects circular structures with a clear error", () => {
+    const circular: Record<string, unknown> = {};
+    circular.self = circular;
+
+    expect(() => CleanText.get.checksum(circular)).toThrow("Cannot checksum circular data");
+  });
+
+  it("stably hashes structured and binary values", () => {
+    expect(
+      CleanText.get.checksum(
+        new Map([
+          ["a", 1],
+          ["b", 2],
+        ]),
+      ),
+    ).toBe(
+      CleanText.get.checksum(
+        new Map([
+          ["b", 2],
+          ["a", 1],
+        ]),
+      ),
+    );
+    expect(CleanText.get.checksum(new Set(["a", "b"]))).toBe(CleanText.get.checksum(new Set(["b", "a"])));
+    expect(CleanText.get.checksum(Buffer.from([0, 1, 2]))).not.toBe(CleanText.get.checksum(new Uint8Array([0, 1, 2])));
+    expect(CleanText.get.checksum(new Date("2020-01-01T00:00:00Z"))).not.toBe(
+      CleanText.get.checksum(new Date("2021-01-01T00:00:00Z")),
+    );
+    expect(CleanText.get.checksum(/hello/gi)).not.toBe(CleanText.get.checksum(/hello/g));
+  });
+
+  it("distinguishes special numeric and array values", () => {
+    const values = [Number.NaN, Number.POSITIVE_INFINITY, Number.NEGATIVE_INFINITY, -0, 0];
+    const sparse = Array(1);
+
+    expect(new Set(values.map((value) => CleanText.get.checksum(value)))).toHaveLength(values.length);
+    expect(CleanText.get.checksum(sparse)).not.toBe(CleanText.get.checksum([undefined]));
+  });
+
+  it("rejects values with opaque or symbol-keyed state", () => {
+    expect(() => CleanText.get.checksum(Symbol("value"))).toThrow("Cannot checksum symbol values");
+    expect(() => CleanText.get.checksum(() => "value")).toThrow("Cannot checksum function values");
+    expect(() => CleanText.get.checksum(new WeakMap())).toThrow("Cannot checksum WeakMap values");
+    expect(() => CleanText.get.checksum({ [Symbol("key")]: "value" })).toThrow(
+      "Cannot checksum symbol-keyed properties",
+    );
   });
 });
 
@@ -126,6 +175,10 @@ describe("get.filename", () => {
     // When there's a trailing slash, returns empty after the last separator
     const result = CleanText.get.filename("/path/to/dir/");
     expect(result).toBe("");
+  });
+
+  it("removes URL query strings and fragments", () => {
+    expect(CleanText.get.filename("https://example.com/file.txt?download=1#top")).toBe("file.txt");
   });
 });
 
@@ -159,6 +212,18 @@ describe("get.reversed", () => {
   it("handles surrogate pairs correctly", () => {
     // 𝌆 is U+1D306, a surrogate pair in UTF-16
     expect(CleanText.get.reversed("𝌆abc")).toBe("cba𝌆");
+  });
+
+  it("preserves flag grapheme clusters", () => {
+    expect(CleanText.get.reversed("🇺🇸abc")).toBe("cba🇺🇸");
+  });
+
+  it("preserves joined family emoji", () => {
+    expect(CleanText.get.reversed("👨‍👩‍👧‍👦abc")).toBe("cba👨‍👩‍👧‍👦");
+  });
+
+  it("keeps combining marks attached to their base character", () => {
+    expect(CleanText.get.reversed("e\u0301abc")).toBe("cbae\u0301");
   });
 });
 
@@ -517,6 +582,10 @@ describe("replace.diacritics", () => {
     expect(CleanText.replace.diacritics("\u0152")).toBe("OE"); // Œ
     expect(CleanText.replace.diacritics("\u0153")).toBe("oe"); // œ
     expect(CleanText.replace.diacritics("\u00DF")).toBe("ss"); // ß
+  });
+
+  it("removes decomposed combining marks", () => {
+    expect(CleanText.replace.diacritics("cre\u0300me bru\u0302le\u0301e")).toBe("creme brulee");
   });
 });
 
