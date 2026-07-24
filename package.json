@@ -2,6 +2,7 @@
   "name": "clean-text-utils",
   "version": "1.2.1",
   "description": "A Swiss Army Knife of text operations. Great for removing smart quotes, non-ASCII characters, emojis, and more.",
+  "type": "commonjs",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
@@ -15,10 +16,21 @@
         "types": "./dist/index.d.ts",
         "default": "./dist/index.js"
       }
+    },
+    "./*": {
+      "import": {
+        "types": "./dist/*.d.mts",
+        "default": "./dist/*.mjs"
+      },
+      "require": {
+        "types": "./dist/*.d.ts",
+        "default": "./dist/*.js"
+      }
     }
   },
   "files": [
-    "dist"
+    "dist",
+    "THIRD_PARTY_NOTICES.md"
   ],
   "sideEffects": false,
   "repository": {
@@ -31,11 +43,18 @@
   "homepage": "https://github.com/daviseford/clean-text-utils/#readme",
   "scripts": {
     "build": "tsup",
+    "check": "npm run lint && npm run typecheck && npm test && npm run build && npm run test:package && npm run size && npm run size:consumer && npm run check:package && npm audit",
+    "check:package": "publint && attw --pack . --profile node16 --entrypoints . ./capitalize ./checksum ./filename ./reverse ./is/hex-code ./replace/diacritics ./replace/exotic-chars ./replace/smart-chars ./strip/bom ./strip/emoji ./strip/extra-space ./strip/gutenberg ./strip/newlines ./strip/non-ascii ./strip/punctuation ./strip/whitespace && npm pack --dry-run",
     "test": "vitest run",
+    "test:package": "node scripts/package-smoke.mjs",
     "test:watch": "vitest",
-    "lint": "biome check src/",
-    "format": "biome format --write src/",
-    "size": "size-limit"
+    "lint": "biome check src/ scripts/ tsup.config.ts",
+    "format": "biome format --write src/ scripts/ tsup.config.ts",
+    "prepack": "npm run build",
+    "prepublishOnly": "npm run check",
+    "size": "size-limit",
+    "size:consumer": "node scripts/check-consumer-size.mjs",
+    "typecheck": "tsc --noEmit"
   },
   "keywords": [
     "text",

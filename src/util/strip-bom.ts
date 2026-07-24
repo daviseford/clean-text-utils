@@ -36,4 +36,5 @@ const stripBom = (x: string): string => {
   return x.charCodeAt(0) === 0xfeff ? x.slice(1) : x;
 };
 
+export { stripBom };
 export default stripBom;

@@ -1,69 +1,117 @@
 # clean-text-utils
 
-## By Davis E. Ford - [daviseford.com](https://daviseford.com)
+A small, typed collection of text-cleaning utilities for Node.js 18 and newer.
 
-A Swiss Army Knife of text operations. Great for removing smart quotes, non-ASCII characters, emojis, and more.
+## Install
+
+```sh
+npm install clean-text-utils
+```
 
 ## Usage
 
-`npm i clean-text-utils --save`
+Import individual functions from the package root:
 
-```javascript
-import * as cleanTextUtils from 'clean-text-utils';
+```js
+import {
+  replaceDiacritics,
+  replaceSmartChars,
+  stripEmoji,
+} from "clean-text-utils";
 
-let txt = 'Iлｔèｒｎ, get rid of these so-called “💩emoji💩”';
-// Let's clean this up
-txt = cleanTextUtils.strip.emoji(txt);
-txt = cleanTextUtils.replace.diacritics(txt);
-txt = cleanTextUtils.replace.smartChars(txt);
-console.log(txt)
->>> 'Intern, get rid of these so-called "emoji"'
+let text = "Cr\u00E8me br\u00FBl\u00E9e \u{1F36E}";
+text = stripEmoji(text);
+text = replaceDiacritics(text);
+text = replaceSmartChars(text);
+
+console.log(text); // "Creme brulee"
 ```
 
-## Methods
+The original namespace API remains available:
 
-### .get
+```js
+import cleanTextUtils from "clean-text-utils";
 
-`cleanTextUtils.get.capitalized` - Capitalizes the first character of a given string.
+cleanTextUtils.get.capitalized("hello");
+cleanTextUtils.replace.diacritics("cr\u00E8me br\u00FBl\u00E9e");
+cleanTextUtils.strip.whitespace("hello world");
+```
 
-`cleanTextUtils.get.checksum` - Given any data, returns a unique checksum. Pass in `md5` or `sha1` for different algorithms. `sha256` is enabled by default.
+For the smallest bundle, and for browser applications, use a text-only subpath:
 
-`cleanTextUtils.get.filename` - Given a url or filepath, returns the filename.
+```js
+import stripWhitespace from "clean-text-utils/strip/whitespace";
 
-`cleanTextUtils.get.reversed` - Reverses a string. Unicode aware.
+stripWhitespace("hello world"); // "helloworld"
+```
 
-### .is
+Each subpath has both a default export and a named export. The root entry includes the synchronous Node.js checksum
+utility and is therefore intended for Node.js. All subpaths except `clean-text-utils/checksum` are browser-safe.
 
-`cleanTextUtils.is.hexCode` - Returns `true` if the given string is a hex code, such as `#FFF` or `#FA5732`.
+## Exports
 
-### .strip
+| Named export | Subpath |
+| --- | --- |
+| `capitalize` | `clean-text-utils/capitalize` |
+| `checksum` | `clean-text-utils/checksum` |
+| `filename` | `clean-text-utils/filename` |
+| `reverse` | `clean-text-utils/reverse` |
+| `isHexCode` | `clean-text-utils/is/hex-code` |
+| `replaceDiacritics` | `clean-text-utils/replace/diacritics` |
+| `replaceExoticChars` | `clean-text-utils/replace/exotic-chars` |
+| `replaceSmartChars` | `clean-text-utils/replace/smart-chars` |
+| `stripBom` | `clean-text-utils/strip/bom` |
+| `stripEmoji` | `clean-text-utils/strip/emoji` |
+| `stripExtraSpace` | `clean-text-utils/strip/extra-space` |
+| `stripGutenberg` | `clean-text-utils/strip/gutenberg` |
+| `stripNewlines` | `clean-text-utils/strip/newlines` |
+| `stripNonASCII` | `clean-text-utils/strip/non-ascii` |
+| `stripPunctuation` | `clean-text-utils/strip/punctuation` |
+| `stripWhitespace` | `clean-text-utils/strip/whitespace` |
 
-`cleanTextUtils.strip.bom` - Remove UTF8 Byte Order Marks from a string.
+## API
 
-`cleanTextUtils.strip.emoji` - Remove emojii from a string.
+### Get
 
-`cleanTextUtils.strip.extraSpace` - Remove any extra padding from a string.
+- `capitalize(text)` / `get.capitalized(text)` capitalizes the first character.
+- `checksum(data, algorithm?)` / `get.checksum(data, algorithm?)` returns a hexadecimal digest. `sha256` is the
+  default; `sha`, `sha1`, `sha512`, and `md5` are also supported.
+- `filename(pathOrUrl)` / `get.filename(pathOrUrl)` returns the filename from a URL or Windows/POSIX path. Query
+  strings and URL fragments are excluded.
+- `reverse(text)` / `get.reversed(text)` reverses text by Unicode grapheme cluster, preserving emoji sequences,
+  flags, and combining marks.
 
-`cleanTextUtils.strip.gutenberg` - Remove [Project Gutenberg](http://www.gutenberg.org/browse/scores/top) header/footer watermarks for further processing.
+`checksum` hashes strings directly for compatibility. Other supported JavaScript values use deterministic,
+type-aware serialization, so object key order does not affect the result and values such as `false`, `0`, `null`,
+and `undefined` remain distinct. Circular data, functions, symbols, symbol-keyed properties, and opaque objects whose
+state cannot be inspected throw a `TypeError` instead of producing a misleading digest.
 
-`cleanTextUtils.strip.newlines` - Removes newline characters from a string.
+### Is
 
-`cleanTextUtils.strip.nonASCII` - Remove non-ASCII characters from a string.
+- `isHexCode(text)` / `is.hexCode(text)` checks three- and six-digit hexadecimal color codes.
 
-`cleanTextUtils.strip.punctuation` - Removes common punctuation characters from a string.
+### Replace
 
-`cleanTextUtils.strip.whitespace` - Removes ALL whitespace characters from a string.
+- `replaceDiacritics(text)` / `replace.diacritics(text)` transliterates diacritics, including decomposed combining
+  marks.
+- `replaceExoticChars(text)` / `replace.exoticChars(text)` replaces diacritics and smart punctuation and removes a
+  UTF-8 byte order mark.
+- `replaceSmartChars(text)` / `replace.smartChars(text)` replaces smart quotes, ellipses, and dashes with ASCII
+  equivalents.
 
-### .replace
+### Strip
 
-`cleanTextUtils.replace.diacritics` - Replace diacritics with their sensible alternatives
+- `stripBom(text)` / `strip.bom(text)` removes a UTF-8 byte order mark.
+- `stripEmoji(text)` / `strip.emoji(text)` removes emoji.
+- `stripExtraSpace(text)` / `strip.extraSpace(text)` collapses repeated whitespace and trims the result.
+- `stripGutenberg(text)` / `strip.gutenberg(text)` removes Project Gutenberg header and footer boilerplate.
+- `stripNewlines(text)` / `strip.newlines(text)` removes carriage returns and line feeds.
+- `stripNonASCII(text)` / `strip.nonASCII(text)` removes non-ASCII characters.
+- `stripPunctuation(text)` / `strip.punctuation(text)` removes common punctuation.
+- `stripWhitespace(text)` / `strip.whitespace(text)` removes all whitespace.
 
-`cleanTextUtils.replace.exoticChars` - Replace diacritics, remove UTF8 BOM, and replace smart characters from a string.
+TypeScript declarations are included for the root API and every subpath.
 
-`cleanTextUtils.replace.smartChars` - Replace smart characters.
+## License
 
-## Types
-
-TypeScript definitions are automatically installed.
-
-`import * as cleanTextUtils from 'clean-text-utils'` to use built in types. :)
+[MIT](LICENSE) (c) Davis E. Ford

@@ -4,6 +4,15 @@ import type { Algorithm } from "../definitions/module";
 
 const ALGORITHMS: readonly Algorithm[] = ["sha", "sha1", "sha256", "sha512", "md5"];
 const SERIALIZATION_PREFIX = "\0clean-text-utils:";
+const UNSUPPORTED_OBJECT_TAGS = new Set([
+  "[object Error]",
+  "[object FinalizationRegistry]",
+  "[object Promise]",
+  "[object Symbol]",
+  "[object WeakMap]",
+  "[object WeakRef]",
+  "[object WeakSet]",
+]);
 
 const getAlgorithm = (algorithm: unknown): Algorithm => {
   return typeof algorithm === "string" && ALGORITHMS.includes(algorithm as Algorithm)
@@ -47,6 +56,14 @@ const serializeValue = (value: unknown, seen: WeakSet<object>): string => {
 
   if (seen.has(value)) {
     throw new TypeError("Cannot checksum circular data");
+  }
+
+  const objectTag = Object.prototype.toString.call(value);
+  if (UNSUPPORTED_OBJECT_TAGS.has(objectTag)) {
+    throw new TypeError(`Cannot checksum ${objectTag.slice(8, -1)} values`);
+  }
+  if (Object.getOwnPropertySymbols(value).length > 0) {
+    throw new TypeError("Cannot checksum symbol-keyed properties");
   }
 
   if (Buffer.isBuffer(value)) {
@@ -95,6 +112,9 @@ const serializeValue = (value: unknown, seen: WeakSet<object>): string => {
       .sort()
       .map((key) => `${JSON.stringify(key)}:${serializeValue(record[key], seen)}`);
     const type = value.constructor?.name ?? "Object";
+    if (type !== "Object" && entries.length === 0) {
+      throw new TypeError(`Cannot checksum ${type} values`);
+    }
     return `object:${type}:{${entries.join(",")}}`;
   } finally {
     seen.delete(value);
@@ -111,4 +131,5 @@ const checksum = (data: unknown, algorithm?: string): string => {
   return createHash(getAlgorithm(algorithm)).update(serialized).digest("hex");
 };
 
+export { checksum };
 export default checksum;

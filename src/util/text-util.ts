@@ -107,4 +107,16 @@ const TextUtils: ITextUtils = {
   stripWhitespace,
 };
 
+export {
+  capitalizeWord as capitalize,
+  getFileName as filename,
+  isHexCode,
+  replaceExoticChars,
+  replaceSmartChars,
+  stripExtraSpace,
+  stripNewLines as stripNewlines,
+  stripNonASCII,
+  stripPunctuation,
+  stripWhitespace,
+};
 export default TextUtils;

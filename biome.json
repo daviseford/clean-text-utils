@@ -16,6 +16,6 @@
     }
   },
   "files": {
-    "includes": ["src/**/*.ts"]
+    "includes": ["src/**/*.ts", "scripts/**/*.mjs", "tsup.config.ts"]
   }
 }

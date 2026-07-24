@@ -109,6 +109,47 @@ describe("get.checksum", () => {
 
     expect(() => CleanText.get.checksum(circular)).toThrow("Cannot checksum circular data");
   });
+
+  it("stably hashes structured and binary values", () => {
+    expect(
+      CleanText.get.checksum(
+        new Map([
+          ["a", 1],
+          ["b", 2],
+        ]),
+      ),
+    ).toBe(
+      CleanText.get.checksum(
+        new Map([
+          ["b", 2],
+          ["a", 1],
+        ]),
+      ),
+    );
+    expect(CleanText.get.checksum(new Set(["a", "b"]))).toBe(CleanText.get.checksum(new Set(["b", "a"])));
+    expect(CleanText.get.checksum(Buffer.from([0, 1, 2]))).not.toBe(CleanText.get.checksum(new Uint8Array([0, 1, 2])));
+    expect(CleanText.get.checksum(new Date("2020-01-01T00:00:00Z"))).not.toBe(
+      CleanText.get.checksum(new Date("2021-01-01T00:00:00Z")),
+    );
+    expect(CleanText.get.checksum(/hello/gi)).not.toBe(CleanText.get.checksum(/hello/g));
+  });
+
+  it("distinguishes special numeric and array values", () => {
+    const values = [Number.NaN, Number.POSITIVE_INFINITY, Number.NEGATIVE_INFINITY, -0, 0];
+    const sparse = Array(1);
+
+    expect(new Set(values.map((value) => CleanText.get.checksum(value)))).toHaveLength(values.length);
+    expect(CleanText.get.checksum(sparse)).not.toBe(CleanText.get.checksum([undefined]));
+  });
+
+  it("rejects values with opaque or symbol-keyed state", () => {
+    expect(() => CleanText.get.checksum(Symbol("value"))).toThrow("Cannot checksum symbol values");
+    expect(() => CleanText.get.checksum(() => "value")).toThrow("Cannot checksum function values");
+    expect(() => CleanText.get.checksum(new WeakMap())).toThrow("Cannot checksum WeakMap values");
+    expect(() => CleanText.get.checksum({ [Symbol("key")]: "value" })).toThrow(
+      "Cannot checksum symbol-keyed properties",
+    );
+  });
 });
 
 // ─── get.filename ───────────────────────────────────────────────────────────
@@ -541,6 +582,10 @@ describe("replace.diacritics", () => {
     expect(CleanText.replace.diacritics("\u0152")).toBe("OE"); // Œ
     expect(CleanText.replace.diacritics("\u0153")).toBe("oe"); // œ
     expect(CleanText.replace.diacritics("\u00DF")).toBe("ss"); // ß
+  });
+
+  it("removes decomposed combining marks", () => {
+    expect(CleanText.replace.diacritics("cre\u0300me bru\u0302le\u0301e")).toBe("creme brulee");
   });
 });
 

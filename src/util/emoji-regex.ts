@@ -1,6 +1,6 @@
 import emojiRegex from "emoji-regex";
 
-const EMOJI_REGEX = emojiRegex();
+let emojiPattern: RegExp | undefined;
 
 /**
  * Strip emoji from text
@@ -9,7 +9,9 @@ const EMOJI_REGEX = emojiRegex();
  * @returns {string}
  */
 const stripEmoji = (text: string): string => {
-  return text.replace(EMOJI_REGEX, "").trim();
+  emojiPattern ??= emojiRegex();
+  return text.replace(emojiPattern, "").trim();
 };
 
+export { stripEmoji };
 export default stripEmoji;
