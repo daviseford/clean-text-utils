@@ -54,13 +54,16 @@
     "node": ">=18"
   },
   "devDependencies": {
+    "@arethetypeswrong/cli": "0.18.5",
     "@biomejs/biome": "^2.4.4",
     "@size-limit/file": "^12.0.0",
-    "@types/node": "^25.3.2",
+    "@types/node": "18.19.130",
+    "esbuild": "0.27.2",
+    "publint": "0.3.22",
     "size-limit": "^12.0.0",
     "tsup": "^8.5.1",
     "typescript": "^5.9.3",
-    "vitest": "^4.0.18"
+    "vitest": "3.2.7"
   },
   "dependencies": {
     "emoji-regex": "^10.6.0"
