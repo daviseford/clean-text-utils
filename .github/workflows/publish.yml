@@ -1,0 +1,51 @@
+name: Publish to npm
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: npm-publish
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          registry-url: https://registry.npmjs.org
+          package-manager-cache: false
+      - run: npm ci
+      - name: Check whether this version is already published
+        id: version
+        shell: bash
+        run: |
+          package_name=$(node -p "require('./package.json').name")
+          package_version=$(node -p "require('./package.json').version")
+          package_spec="${package_name}@${package_version}"
+
+          set +e
+          npm_output=$(npm view "$package_spec" version --json 2>&1)
+          npm_status=$?
+          set -e
+
+          if [ "$npm_status" -eq 0 ]; then
+            echo "$package_spec is already published; nothing to do."
+            echo "should_publish=false" >> "$GITHUB_OUTPUT"
+          elif grep -q '"code": "E404"' <<< "$npm_output"; then
+            echo "$package_spec is not published yet."
+            echo "should_publish=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "$npm_output" >&2
+            exit "$npm_status"
+          fi
+      - if: steps.version.outputs.should_publish == 'true'
+        run: npm publish
