@@ -1,0 +1,29 @@
+name: Publish to npm
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: npm-publish-${{ github.event.release.tag_name }}
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          registry-url: https://registry.npmjs.org
+          package-manager-cache: false
+      - run: npm ci
+      - name: Verify release tag matches package version
+        run: |
+          node -e "const { version } = require('./package.json'); const expected = `v${version}`; if (process.env.GITHUB_REF_NAME !== expected) { console.error(`Release tag ${process.env.GITHUB_REF_NAME} does not match package version ${expected}`); process.exit(1); }"
+      - run: npm publish
