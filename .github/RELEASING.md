@@ -1,6 +1,8 @@
 # Releasing
 
-Publishing is handled by `.github/workflows/publish.yml` when a GitHub release is published.
+Publishing is handled by `.github/workflows/publish.yml` whenever a commit lands on `master`.
+The workflow reads the version from `package.json`, skips versions that already exist on npm, and
+publishes new versions.
 
 ## One-time npm setup
 
@@ -16,11 +18,9 @@ No npm token is stored in GitHub. The workflow authenticates with OpenID Connect
 
 ## Publish a release
 
-1. Update the version in `package.json` and `package-lock.json`, then merge that change to `master`.
-2. Create a GitHub release whose tag exactly matches the package version:
+1. Update the version in `package.json` and `package-lock.json`.
+2. Merge that change to `master`.
 
-   ```sh
-   gh release create v1.3.0 --target master --generate-notes
-   ```
-
-The workflow rejects mismatched release tags and package versions before publishing.
+The push to `master` runs the package checks and publishes the new version automatically. Rerunning
+the workflow, or pushing another commit without changing the version, exits successfully without
+publishing again.

@@ -1,15 +1,16 @@
 name: Publish to npm
 
 on:
-  release:
-    types: [published]
+  push:
+    branches: [master]
+  workflow_dispatch:
 
 permissions:
   contents: read
   id-token: write
 
 concurrency:
-  group: npm-publish-${{ github.event.release.tag_name }}
+  group: npm-publish
   cancel-in-progress: false
 
 jobs:
@@ -23,7 +24,28 @@ jobs:
           registry-url: https://registry.npmjs.org
           package-manager-cache: false
       - run: npm ci
-      - name: Verify release tag matches package version
+      - name: Check whether this version is already published
+        id: version
+        shell: bash
         run: |
-          node -e "const { version } = require('./package.json'); const expected = `v${version}`; if (process.env.GITHUB_REF_NAME !== expected) { console.error(`Release tag ${process.env.GITHUB_REF_NAME} does not match package version ${expected}`); process.exit(1); }"
-      - run: npm publish
+          package_name=$(node -p "require('./package.json').name")
+          package_version=$(node -p "require('./package.json').version")
+          package_spec="${package_name}@${package_version}"
+
+          set +e
+          npm_output=$(npm view "$package_spec" version --json 2>&1)
+          npm_status=$?
+          set -e
+
+          if [ "$npm_status" -eq 0 ]; then
+            echo "$package_spec is already published; nothing to do."
+            echo "should_publish=false" >> "$GITHUB_OUTPUT"
+          elif grep -q '"code": "E404"' <<< "$npm_output"; then
+            echo "$package_spec is not published yet."
+            echo "should_publish=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "$npm_output" >&2
+            exit "$npm_status"
+          fi
+      - if: steps.version.outputs.should_publish == 'true'
+        run: npm publish
