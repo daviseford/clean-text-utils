@@ -35,5 +35,5 @@ test validates built ESM/CJS root and subpath imports.
 **Linting:** Biome handles linting and formatting for source, scripts, and the build config. Run `npm run lint` to
 check, `npm run format` to auto-format.
 
-**CI:** GitHub Actions runs lint, type checks, builds, package smoke tests, and unit tests on Node 18/20/22. A
+**CI:** GitHub Actions runs lint, type checks, builds, package smoke tests, and unit tests on Node 20/22. A
 separate Node 22 job validates the packed package, dependency audit, and consumer size budgets.
