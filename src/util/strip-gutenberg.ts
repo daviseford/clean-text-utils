@@ -5,20 +5,15 @@
  * @returns {string}
  */
 const stripGutenberg = (txt: string): string => {
-  const start_delim = "*** START OF THIS PROJECT GUTENBERG EBOOK";
-  const end_delim = "*** END OF THIS PROJECT GUTENBERG EBOOK";
-  // Remove everything before and including start_delim
-  if (txt.includes(end_delim)) {
-    txt = txt.split(end_delim)[0];
+  // Older files say "THIS PROJECT GUTENBERG", current ones "THE PROJECT GUTENBERG"; titles may contain any punctuation.
+  const end = txt.search(/\*\*\* END OF TH(?:IS|E) PROJECT GUTENBERG EBOOK/);
+  if (end !== -1) {
+    txt = txt.slice(0, end);
   }
-  if (txt.includes(start_delim)) {
-    const m = txt.match(/^.+?(?=START OF THIS PROJECT GUTENBERG EBOOK [\w\s]+\*\*\*)(.+)$/gm);
-    if (!m) {
-      return txt;
-    }
-    const i = m[0];
-    const slice_before_index = txt.indexOf(i) + i.length;
-    txt = txt.slice(slice_before_index);
+  // Remove everything up to the end of the line holding the start delimiter
+  const start = txt.match(/^.*\*\*\* START OF TH(?:IS|E) PROJECT GUTENBERG EBOOK(?=[^*]*\*\*\*).*$/m);
+  if (start?.index !== undefined) {
+    txt = txt.slice(start.index + start[0].length);
   }
   return txt;
 };

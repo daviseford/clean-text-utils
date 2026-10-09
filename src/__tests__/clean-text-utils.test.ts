@@ -404,6 +404,31 @@ describe("strip.gutenberg", () => {
     expect(CleanText.strip.gutenberg(txt).trim()).toBe("Some content here");
   });
 
+  it("removes current 'THE PROJECT GUTENBERG' header and footer", () => {
+    const alice = `The Project Gutenberg eBook of Alice's Adventures in Wonderland
+
+    *** START OF THE PROJECT GUTENBERG EBOOK ALICE'S ADVENTURES IN WONDERLAND ***
+
+    Down the Rabbit-Hole
+
+    *** END OF THE PROJECT GUTENBERG EBOOK ALICE'S ADVENTURES IN WONDERLAND ***
+    Updated editions will replace the previous one.`;
+    expect(CleanText.strip.gutenberg(alice).trim()).toBe("Down the Rabbit-Hole");
+  });
+
+  it("removes the header when the title has punctuation", () => {
+    const txt = `License header
+    *** START OF THIS PROJECT GUTENBERG EBOOK DR. JEKYLL AND MR. HYDE, VOL. 1 ***
+    Story text`;
+    expect(CleanText.strip.gutenberg(txt).trim()).toBe("Story text");
+  });
+
+  it("leaves a START line without a closing *** untouched", () => {
+    const txt = `*** START OF THE PROJECT GUTENBERG EBOOK
+    no closing marker`;
+    expect(CleanText.strip.gutenberg(txt)).toBe(txt);
+  });
+
   it("leaves non-Gutenberg text untouched", () => {
     const innocent = `
     *** IMPORTANT STUFF DESIGNED TO TRIP UP THE REGEX ***
